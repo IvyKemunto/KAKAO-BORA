@@ -1,4 +1,3 @@
-
 import streamlit as st
 from ultralytics import YOLO
 import numpy as np
@@ -6,6 +5,29 @@ from PIL import Image, ImageDraw, ImageFont
 import torch
 import io
 import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import altair as alt
+
+# Set up theme configuration
+import pathlib
+
+# Create .streamlit directory if it doesn't exist
+config_dir = pathlib.Path(".streamlit")
+config_dir.mkdir(exist_ok=True)
+
+# Create config.toml with theme settings
+config_path = config_dir / "config.toml"
+config_text = """
+[theme]
+primaryColor = "#5D4037"  # Darker Brown (main brown color)
+backgroundColor = "#FAF0E6"  # Linen (beige background)
+secondaryBackgroundColor = "#DEB887"  # Burlywood (darker beige)
+textColor = "#3E2723"  # Dark Brown for text
+font = "sans serif"
+"""
+with open(config_path, "w") as f:
+    f.write(config_text)
 
 # Set page config
 st.set_page_config(
@@ -14,15 +36,16 @@ st.set_page_config(
     layout="wide"
 )
 
-# App title and description
-st.title("Kakao Bora")
+# App title and description with custom styling
+st.markdown("<h1 style='color: #3E1C00;'>Kakao Bora</h1>", unsafe_allow_html=True)
+st.markdown("<p style='color: #5D4037; font-size: 1.2em; font-style: italic;'>Your ultimate cocoa companion</p>", unsafe_allow_html=True)
 st.write("Upload an image to detect cocoa contamination.")
 
 # Class colors for visualization
 class_colors = {
-    0: (255, 0, 0),     # 'anthracnose' - red
-    1: (255, 255, 0),   # 'cssvd' - yellow
-    2: (0, 255, 0)      # 'healthy' - green
+    0: (165, 42, 42),   # 'anthracnose' - brown
+    1: (218, 165, 32),  # 'cssvd' - goldenrod
+    2: (34, 139, 34)    # 'healthy' - forestgreen
 }
 
 # Class names
@@ -107,7 +130,7 @@ if uploaded_file is not None:
     
     with col1:
         st.subheader("Original Image")
-        st.image(image, caption='Uploaded Image', use_column_width=True)
+        st.image(image, caption='Uploaded Image', use_container_width=True)
     
     # Make prediction on button click
     if st.button('Detect Contamination'):
@@ -118,7 +141,7 @@ if uploaded_file is not None:
                 
                 with col2:
                     st.subheader("Prediction Results")
-                    st.image(result_image, caption='Detection Results', use_column_width=True)
+                    st.image(result_image, caption='Detection Results', use_container_width=True)
                 
                 # Display class predictions
                 if class_predictions:
@@ -141,7 +164,7 @@ with st.expander("About Kakao Bora"):
     The model was trained on a dataset from the Zindi Amini Cocoa Contamination Challenge.
     
     The model can detect the following conditions:
-    - 🔴 Anthracnose - A fungal disease affecting cocoa plants
+    - 🟤 Anthracnose - A fungal disease affecting cocoa plants
     - 🟡 CSSVD (Cocoa Swollen Shoot Virus Disease) - A viral disease affecting cocoa
     - 🟢 Healthy - Cocoa plants without disease
     
@@ -150,7 +173,7 @@ with st.expander("About Kakao Bora"):
 
 # Add a sidebar with additional information
 st.sidebar.title("Kakao Bora")
-st.sidebar.image("https://img.freepik.com/free-photo/cocoa-beans-with-cocoa-pod_144627-29639.jpg", use_column_width=True)
+st.sidebar.image("https://i.pinimg.com/736x/46/b4/bf/46b4bf4dd1033ecdffe3b9fb7f4c08a3.jpg", use_container_width=True)
 st.sidebar.markdown("""
 ## How to use
 1. Upload an image of a cocoa plant or leaf

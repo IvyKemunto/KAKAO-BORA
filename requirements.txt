@@ -4,3 +4,6 @@ torchvision
 ultralytics
 pillow
 numpy
+pandas
+matplotlib
+opencv-python

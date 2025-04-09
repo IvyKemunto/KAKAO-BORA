@@ -1,0 +1,7 @@
+
+[theme]
+primaryColor = "#5D4037"  # Darker Brown (main brown color)
+backgroundColor = "#FAF0E6"  # Linen (beige background)
+secondaryBackgroundColor = "#DEB887"  # Burlywood (darker beige)
+textColor = "#3E2723"  # Dark Brown for text
+font = "sans serif"
