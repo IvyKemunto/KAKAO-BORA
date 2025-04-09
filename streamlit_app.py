@@ -164,7 +164,7 @@ with st.expander("About Kakao Bora"):
     The model was trained on a dataset from the Zindi Amini Cocoa Contamination Challenge.
     
     The model can detect the following conditions:
-    - 🟤 Anthracnose - A fungal disease affecting cocoa plants
+    - 🔴 Anthracnose - A fungal disease affecting cocoa plants
     - 🟡 CSSVD (Cocoa Swollen Shoot Virus Disease) - A viral disease affecting cocoa
     - 🟢 Healthy - Cocoa plants without disease
     
